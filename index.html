@@ -213,11 +213,13 @@
           <p>
             You're 68% through your smile-brightening program. Stay consistent this week to unlock your next whitening milestone.
           </p>
-          <a class="cta" href="#">Start today’s 4-minute routine</a>
+          <a class="cta" href="javascript:void(0)" role="button" aria-label="Start today’s 4-minute routine">
+            Start today’s 4-minute routine
+          </a>
         </div>
         <div class="metric">
-          <div class="stars">
-            <span class="star-track" aria-label="7 out of 11 stars">★★★★★★★☆☆☆☆</span>
+          <div class="stars" aria-label="User experience rating: 7 out of 11 stars">
+            <span class="star-track" aria-hidden="true">★★★★★★★☆☆☆☆</span>
             <span>7/11 experience</span>
           </div>
           <h2>Comfort & confidence score</h2>
@@ -229,7 +231,16 @@
         <article class="card metric">
           <h3>Shade Progress</h3>
           <p>Current shade: <strong>2.5 levels brighter</strong></p>
-          <div class="bar" role="img" aria-label="68 percent progress bar"><span></span></div>
+          <div
+            class="bar"
+            role="progressbar"
+            aria-label="Whitening progress"
+            aria-valuenow="68"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          >
+            <span></span>
+          </div>
           <p style="color: var(--muted)">Goal: +4 levels in 14 days</p>
         </article>
 
