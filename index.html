@@ -5,64 +5,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lumora | Your Brighter Smile Journey</title>
     <style>
+      /*
+        Palette — strictly five tokens, per design system.
+        https://color.adobe.com/explore?q=ice
+      */
       :root {
-        --bg: #f4f6fb;
-        --bg-grad-start: #eef1fb;
-        --bg-grad-end: #f8faff;
-        --card: #ffffff;
-        --card-border: rgba(31, 42, 68, 0.08);
-        --text: #131a2e;
-        --text-soft: #3a4664;
-        --muted: #6c7a96;
-        --primary: #4338ca;
-        --primary-soft: #eef0ff;
-        --primary-strong: #312e81;
-        --accent: #0d9488;
-        --accent-soft: #e6fffb;
-        --warn-soft: #fef3c7;
-        --gold: #d97706;
-        --ring: 0 0 0 3px rgba(67, 56, 202, 0.25);
-        --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 1px rgba(15, 23, 42, 0.03);
-        --shadow-md: 0 10px 24px -12px rgba(31, 42, 68, 0.18), 0 2px 6px rgba(31, 42, 68, 0.04);
+        --ink:   #002E99; /* deep indigo — primary text, key strokes */
+        --blue:  #5276CC; /* medium blue — secondary, interactive */
+        --ice:   #80E9FF; /* ice cyan  — accent, glow, milestone */
+        --snow:  #FFFCFB; /* snow white — surface, background */
+        --stone: #CCC8C7; /* warm gray — borders, muted, neutrals */
+
+        /* Derived tints (alpha layers of the five tokens only) */
+        --ink-12: rgba(0, 46, 153, 0.12);
+        --ink-20: rgba(0, 46, 153, 0.20);
+        --ink-08: rgba(0, 46, 153, 0.08);
+        --ink-04: rgba(0, 46, 153, 0.04);
+        --blue-15: rgba(82, 118, 204, 0.15);
+        --blue-30: rgba(82, 118, 204, 0.30);
+        --ice-25: rgba(128, 233, 255, 0.25);
+        --ice-45: rgba(128, 233, 255, 0.45);
+        --ice-70: rgba(128, 233, 255, 0.70);
+        --stone-50: rgba(204, 200, 199, 0.50);
+        --stone-30: rgba(204, 200, 199, 0.30);
+
+        --radius-sm: 10px;
+        --radius-md: 14px;
+        --radius-lg: 20px;
+        --radius-xl: 28px;
+
+        --ring: 0 0 0 3px var(--ice-45);
+        --shadow-sm: 0 1px 2px var(--ink-08);
+        --shadow-md: 0 14px 30px -18px var(--ink-20), 0 2px 6px var(--ink-04);
+        --shadow-lg: 0 30px 60px -28px var(--ink-20), 0 6px 14px var(--ink-08);
       }
 
-      * {
-        box-sizing: border-box;
-      }
-
-      html,
-      body {
-        margin: 0;
-        padding: 0;
-      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; }
 
       body {
         font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        background: linear-gradient(180deg, var(--bg-grad-start) 0%, var(--bg-grad-end) 320px, var(--bg) 100%);
-        color: var(--text);
+        background:
+          radial-gradient(60% 40% at 85% -5%, var(--ice-25) 0%, transparent 60%),
+          radial-gradient(50% 35% at 0% 5%, var(--blue-15) 0%, transparent 65%),
+          linear-gradient(180deg, var(--snow) 0%, var(--snow) 60%, var(--stone-30) 100%);
+        color: var(--ink);
         -webkit-font-smoothing: antialiased;
         line-height: 1.5;
         min-height: 100vh;
       }
 
-      a {
-        color: inherit;
-      }
-
-      button {
-        font-family: inherit;
-      }
+      a { color: inherit; }
+      button { font-family: inherit; }
 
       :focus-visible {
         outline: none;
         box-shadow: var(--ring);
-        border-radius: 10px;
+        border-radius: var(--radius-sm);
       }
 
+      /* ---------- App bar ---------- */
       .appbar {
         max-width: 1200px;
         margin: 0 auto;
-        padding: 1rem 1.25rem 0.5rem;
+        padding: 1.1rem 1.25rem 0.5rem;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -72,104 +78,160 @@
       .brand {
         display: inline-flex;
         align-items: center;
-        gap: 0.55rem;
+        gap: 0.6rem;
         font-weight: 700;
         letter-spacing: -0.01em;
-        font-size: 1.05rem;
+        font-size: 1.1rem;
+        color: var(--ink);
       }
 
       .brand-mark {
-        width: 30px;
-        height: 30px;
-        border-radius: 9px;
-        background: linear-gradient(135deg, var(--primary) 0%, #6366f1 60%, var(--accent) 100%);
+        width: 34px;
+        height: 34px;
+        border-radius: 11px;
+        background:
+          radial-gradient(120% 90% at 30% 20%, var(--ice) 0%, var(--blue) 55%, var(--ink) 100%);
         display: grid;
         place-items: center;
-        color: #fff;
+        color: var(--snow);
         font-weight: 800;
-        font-size: 0.95rem;
-        box-shadow: 0 6px 14px -6px rgba(67, 56, 202, 0.6);
+        font-size: 1rem;
+        box-shadow: 0 8px 18px -8px var(--blue-30), inset 0 1px 0 var(--ice-45);
+        position: relative;
       }
+      .brand-mark::after {
+        content: "";
+        position: absolute;
+        inset: -3px;
+        border-radius: 14px;
+        background: conic-gradient(from 0deg, var(--ice), transparent 40%, var(--ice));
+        filter: blur(6px);
+        opacity: 0.35;
+        z-index: -1;
+        animation: spin 14s linear infinite;
+      }
+      @keyframes spin { to { transform: rotate(360deg); } }
 
       .nav {
         display: none;
-        gap: 1.25rem;
+        gap: 1.4rem;
         font-size: 0.92rem;
-        color: var(--text-soft);
+        color: var(--blue);
       }
-
       .nav a {
         text-decoration: none;
         padding: 0.3rem 0.1rem;
         border-bottom: 2px solid transparent;
       }
-
       .nav a[aria-current="page"] {
-        color: var(--primary);
-        border-bottom-color: var(--primary);
+        color: var(--ink);
+        border-bottom-color: var(--ice);
         font-weight: 600;
       }
 
       .avatar {
-        width: 36px;
-        height: 36px;
+        width: 38px;
+        height: 38px;
         border-radius: 50%;
-        background: linear-gradient(135deg, #fcd34d, #f97316);
-        color: #fff;
+        background:
+          radial-gradient(80% 80% at 30% 25%, var(--ice) 0%, var(--blue) 60%, var(--ink) 100%);
+        color: var(--snow);
         display: grid;
         place-items: center;
         font-weight: 700;
         font-size: 0.85rem;
-        box-shadow: var(--shadow-sm);
+        box-shadow: 0 6px 14px -8px var(--ink-20);
+        border: 2px solid var(--snow);
       }
 
       .page {
         max-width: 1200px;
         margin: 0 auto;
-        padding: 0.5rem 1.25rem 2rem;
+        padding: 0.5rem 1.25rem 2.5rem;
         display: grid;
-        gap: 1.1rem;
+        gap: 1.2rem;
       }
 
+      /* ---------- Card primitive ---------- */
       .card {
-        background: var(--card);
-        border-radius: 18px;
-        border: 1px solid var(--card-border);
-        padding: 1.1rem;
+        background: var(--snow);
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--stone-50);
+        padding: 1.2rem;
         box-shadow: var(--shadow-md);
+        position: relative;
       }
 
+      /* ---------- Hero (aurora) ---------- */
       .hero {
         display: grid;
-        gap: 1.25rem;
-        padding: 1.4rem;
+        gap: 1.4rem;
+        padding: 1.5rem;
         background:
-          radial-gradient(120% 80% at 100% 0%, #ddd6fe 0%, rgba(238, 240, 251, 0) 55%),
-          radial-gradient(80% 60% at 0% 100%, #ccfbf1 0%, rgba(255, 255, 255, 0) 60%),
-          linear-gradient(180deg, #ffffff 0%, #fbfcff 100%);
+          radial-gradient(120% 90% at 100% 0%, var(--ice-45) 0%, transparent 55%),
+          radial-gradient(80% 70% at 0% 100%, var(--blue-30) 0%, transparent 60%),
+          linear-gradient(180deg, var(--snow) 0%, var(--snow) 100%);
+        border-radius: var(--radius-xl);
+        border: 1px solid var(--stone-50);
+        box-shadow: var(--shadow-lg);
         position: relative;
         overflow: hidden;
       }
+      /* slow drifting aurora — implied life */
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: -20%;
+        background:
+          radial-gradient(40% 30% at 70% 30%, var(--ice-45) 0%, transparent 70%),
+          radial-gradient(35% 25% at 20% 80%, var(--blue-15) 0%, transparent 70%);
+        filter: blur(20px);
+        animation: drift 22s ease-in-out infinite alternate;
+        pointer-events: none;
+      }
+      @keyframes drift {
+        0%   { transform: translate3d(0,0,0) scale(1); }
+        100% { transform: translate3d(-3%, 2%, 0) scale(1.06); }
+      }
+
+      .hero > * { position: relative; z-index: 1; }
 
       .eyebrow {
         font-size: 0.72rem;
         font-weight: 700;
-        letter-spacing: 0.12em;
+        letter-spacing: 0.14em;
         text-transform: uppercase;
-        color: var(--primary);
+        color: var(--blue);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+      }
+      .eyebrow::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--ice);
+        box-shadow: 0 0 0 4px var(--ice-25);
+        animation: pulse 2.4s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        0%, 100% { box-shadow: 0 0 0 4px var(--ice-25); }
+        50%      { box-shadow: 0 0 0 7px rgba(128, 233, 255, 0.08); }
       }
 
       .hero h1 {
-        margin: 0.35rem 0 0.55rem;
-        font-size: clamp(1.55rem, 3.6vw, 2.25rem);
-        line-height: 1.15;
-        letter-spacing: -0.02em;
+        margin: 0.4rem 0 0.5rem;
+        font-size: clamp(1.7rem, 3.8vw, 2.4rem);
+        line-height: 1.12;
+        letter-spacing: -0.025em;
+        color: var(--ink);
       }
-
       .hero-sub {
-        margin: 0 0 1.1rem;
-        color: var(--text-soft);
-        max-width: 46ch;
+        margin: 0 0 1.2rem;
+        color: var(--blue);
+        max-width: 48ch;
+        font-size: 1rem;
       }
 
       .hero-actions {
@@ -182,57 +244,83 @@
       .cta {
         display: inline-flex;
         align-items: center;
-        gap: 0.5rem;
+        gap: 0.55rem;
         border: 0;
         border-radius: 12px;
-        padding: 0.7rem 1.05rem;
-        background: var(--primary);
-        color: #fff;
+        padding: 0.78rem 1.15rem;
+        background: var(--ink);
+        color: var(--snow);
         font-weight: 600;
         text-decoration: none;
         cursor: pointer;
-        transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
-        box-shadow: 0 8px 18px -10px rgba(67, 56, 202, 0.7);
+        font-size: 0.95rem;
+        transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+        box-shadow: 0 12px 24px -14px var(--ink-20), inset 0 1px 0 var(--blue-30);
       }
-
       .cta:hover {
-        background: var(--primary-strong);
+        background: var(--blue);
         transform: translateY(-1px);
+        box-shadow: 0 16px 30px -16px var(--ink-20), inset 0 1px 0 var(--ice-45);
       }
-
       .cta-secondary {
         background: transparent;
-        color: var(--primary);
-        border: 1px solid rgba(67, 56, 202, 0.25);
+        color: var(--ink);
+        border: 1px solid var(--ink-20);
         box-shadow: none;
       }
-
       .cta-secondary:hover {
-        background: var(--primary-soft);
+        background: var(--ice-25);
+        border-color: var(--ice);
       }
 
       .streak {
         display: inline-flex;
         align-items: center;
-        gap: 0.4rem;
+        gap: 0.45rem;
         margin-left: auto;
-        padding: 0.35rem 0.7rem;
-        font-size: 0.82rem;
+        padding: 0.4rem 0.8rem 0.4rem 0.45rem;
+        font-size: 0.84rem;
         font-weight: 600;
-        color: var(--gold);
-        background: var(--warn-soft);
+        color: var(--ink);
+        background: var(--snow);
+        border: 1px solid var(--stone-50);
         border-radius: 999px;
+        box-shadow: var(--shadow-sm);
+      }
+      .streak-ring {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background:
+          conic-gradient(var(--ice) 0 65%, var(--stone-30) 65% 100%);
+        display: grid;
+        place-items: center;
+        position: relative;
+      }
+      .streak-ring::after {
+        content: "";
+        position: absolute;
+        inset: 3px;
+        background: var(--snow);
+        border-radius: 50%;
+      }
+      .streak-ring svg {
+        position: relative;
+        z-index: 1;
+        color: var(--ink);
       }
 
+      /* ---------- Hero side: Smile Health Index with halo ---------- */
       .hero-side {
-        background: rgba(255, 255, 255, 0.7);
-        backdrop-filter: blur(6px);
-        border-radius: 16px;
-        border: 1px solid var(--card-border);
-        padding: 1.1rem 1.2rem;
+        background: var(--snow);
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--stone-50);
+        padding: 1.2rem 1.3rem;
         display: grid;
-        gap: 0.6rem;
+        gap: 0.55rem;
         align-self: start;
+        position: relative;
+        overflow: hidden;
       }
 
       .score-label {
@@ -240,46 +328,197 @@
         align-items: center;
         justify-content: space-between;
         font-size: 0.85rem;
-        color: var(--muted);
+        color: var(--blue);
       }
 
       .score-tag {
-        font-size: 0.72rem;
+        font-size: 0.7rem;
         font-weight: 700;
-        letter-spacing: 0.08em;
+        letter-spacing: 0.1em;
         text-transform: uppercase;
-        color: var(--accent);
-        background: var(--accent-soft);
-        padding: 0.2rem 0.55rem;
+        color: var(--ink);
+        background: var(--ice-45);
+        padding: 0.22rem 0.6rem;
         border-radius: 999px;
       }
 
+      .score-halo {
+        display: grid;
+        place-items: center;
+        position: relative;
+        width: 148px;
+        height: 148px;
+        margin: 0.25rem auto 0.1rem;
+      }
+      .score-halo::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background:
+          conic-gradient(from -90deg,
+            var(--ice) 0deg,
+            var(--blue) 220deg,
+            var(--stone-30) 220deg,
+            var(--stone-30) 313deg,
+            var(--stone-30) 360deg);
+        -webkit-mask: radial-gradient(circle, transparent 56%, var(--ink) 58%);
+                mask: radial-gradient(circle, transparent 56%, var(--ink) 58%);
+      }
+      .score-halo::after {
+        content: "";
+        position: absolute;
+        inset: -8px;
+        border-radius: 50%;
+        background: radial-gradient(closest-side, var(--ice-45), transparent 70%);
+        filter: blur(8px);
+        opacity: 0.7;
+        animation: breathe 4s ease-in-out infinite;
+      }
+      @keyframes breathe {
+        0%, 100% { opacity: 0.55; transform: scale(1); }
+        50%      { opacity: 0.85; transform: scale(1.04); }
+      }
+      .score-center {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        place-items: center;
+        text-align: center;
+      }
       .score-value {
         display: flex;
         align-items: baseline;
-        gap: 0.5rem;
+        gap: 0.25rem;
         font-weight: 700;
-        font-size: 2.6rem;
+        font-size: 2.4rem;
         line-height: 1;
         letter-spacing: -0.03em;
-        color: var(--text);
+        color: var(--ink);
       }
-
       .score-value small {
-        font-size: 0.95rem;
-        font-weight: 500;
-        color: var(--muted);
-      }
-
-      .score-delta {
-        color: var(--accent);
-        font-weight: 600;
         font-size: 0.85rem;
+        font-weight: 500;
+        color: var(--blue);
+      }
+      .score-delta {
+        color: var(--ink);
+        font-weight: 600;
+        font-size: 0.78rem;
         display: inline-flex;
         align-items: center;
         gap: 0.3rem;
+        background: var(--ice-45);
+        padding: 0.2rem 0.55rem;
+        border-radius: 999px;
+        margin-top: 0.25rem;
+      }
+      .score-sub {
+        margin: 0.35rem 0 0;
+        color: var(--blue);
+        font-size: 0.82rem;
+        text-align: center;
       }
 
+      /* ---------- Smile Journey strip ---------- */
+      .journey {
+        padding: 1.2rem;
+      }
+      .journey-head {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+      .journey-head h2 {
+        margin: 0;
+        font-size: 1.1rem;
+        letter-spacing: -0.01em;
+        color: var(--ink);
+      }
+      .journey-head p {
+        margin: 0.15rem 0 0;
+        font-size: 0.85rem;
+        color: var(--blue);
+      }
+      .journey-link {
+        font-size: 0.85rem;
+        color: var(--ink);
+        text-decoration: none;
+        font-weight: 600;
+        border-bottom: 1px solid var(--ice);
+        padding-bottom: 1px;
+      }
+
+      .journey-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+      }
+      .smile-card {
+        position: relative;
+        border-radius: var(--radius-md);
+        border: 1px solid var(--stone-50);
+        padding: 0.9rem;
+        background: var(--snow);
+        display: grid;
+        gap: 0.55rem;
+      }
+      .smile-card.today {
+        border-color: var(--ice);
+        box-shadow: 0 0 0 3px var(--ice-25), var(--shadow-sm);
+      }
+      .smile-card.goal {
+        background:
+          linear-gradient(180deg, var(--ice-25) 0%, var(--snow) 100%);
+        border-color: var(--ice-45);
+      }
+      .smile-card .smile-svg {
+        width: 100%;
+        height: 76px;
+        border-radius: 10px;
+        background:
+          linear-gradient(180deg, var(--snow) 0%, var(--stone-30) 100%);
+        border: 1px solid var(--stone-50);
+        display: grid;
+        place-items: center;
+      }
+      .smile-card.today .smile-svg {
+        background:
+          linear-gradient(180deg, var(--snow) 0%, var(--ice-25) 100%);
+        border-color: var(--ice-45);
+      }
+      .smile-card.goal .smile-svg {
+        background:
+          linear-gradient(180deg, var(--snow) 0%, var(--ice-45) 100%);
+        border-color: var(--ice);
+      }
+      .smile-meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 0.78rem;
+        color: var(--blue);
+      }
+      .smile-meta strong {
+        color: var(--ink);
+        font-weight: 700;
+      }
+      .smile-chip {
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 0.18rem 0.5rem;
+        border-radius: 999px;
+        background: var(--stone-30);
+        color: var(--ink);
+      }
+      .smile-card.today .smile-chip { background: var(--ice); }
+      .smile-card.goal  .smile-chip { background: var(--ink); color: var(--snow); }
+
+      /* ---------- Grid of cards ---------- */
       .grid {
         display: grid;
         gap: 1.1rem;
@@ -288,97 +527,106 @@
       .card-head {
         display: flex;
         align-items: center;
-        gap: 0.6rem;
-        margin-bottom: 0.85rem;
+        gap: 0.65rem;
+        margin-bottom: 0.9rem;
       }
-
       .card-icon {
-        width: 32px;
-        height: 32px;
-        border-radius: 10px;
+        width: 34px;
+        height: 34px;
+        border-radius: 11px;
         display: grid;
         place-items: center;
-        background: var(--primary-soft);
-        color: var(--primary);
+        background: var(--ice-25);
+        color: var(--ink);
         flex-shrink: 0;
+        border: 1px solid var(--ice-45);
       }
-
-      .card-icon.accent {
-        background: var(--accent-soft);
-        color: var(--accent);
+      .card-icon.solid {
+        background: var(--ink);
+        color: var(--snow);
+        border-color: var(--ink);
       }
-
-      .card-icon.gold {
-        background: var(--warn-soft);
-        color: var(--gold);
+      .card-icon.outline {
+        background: var(--snow);
+        color: var(--blue);
+        border: 1px solid var(--blue-30);
       }
-
       .card h3 {
         margin: 0;
-        font-size: 1rem;
+        font-size: 1.02rem;
         letter-spacing: -0.01em;
+        color: var(--ink);
       }
-
       .card-sub {
         margin: 0;
         font-size: 0.82rem;
-        color: var(--muted);
+        color: var(--blue);
       }
 
+      /* ---------- Shade row ---------- */
       .shade-row {
         display: flex;
         align-items: center;
         gap: 0.45rem;
-        margin: 0.6rem 0 0.85rem;
+        margin: 0.7rem 0 0.9rem;
       }
-
       .shade {
         flex: 1;
         text-align: center;
         font-size: 0.7rem;
         font-weight: 600;
-        color: var(--muted);
-        padding: 0.55rem 0.25rem 0.4rem;
+        color: var(--blue);
+        padding: 0.65rem 0.25rem 0.5rem;
         border-radius: 10px;
-        border: 1px solid var(--card-border);
-        background: var(--shade-bg, #f1efe6);
+        border: 1px solid var(--stone-50);
+        background: var(--shade-bg, var(--stone-30));
         position: relative;
       }
-
+      /* Shade chips re-tinted with palette only — cool/ice progression */
       .shade.current {
-        border-color: var(--primary);
-        color: var(--primary);
-        box-shadow: 0 0 0 3px rgba(67, 56, 202, 0.12);
+        border-color: var(--ink);
+        color: var(--ink);
+        box-shadow: 0 0 0 3px var(--ice-25);
         font-weight: 700;
       }
-
       .shade.goal::after {
         content: "Goal";
         position: absolute;
         top: -0.55rem;
         left: 50%;
         transform: translateX(-50%);
-        background: var(--accent);
-        color: #fff;
+        background: var(--ink);
+        color: var(--snow);
         font-size: 0.6rem;
-        letter-spacing: 0.06em;
-        padding: 0.1rem 0.4rem;
+        letter-spacing: 0.08em;
+        padding: 0.12rem 0.45rem;
         border-radius: 999px;
         text-transform: uppercase;
       }
-
       .shade-foot {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        font-size: 0.84rem;
+        color: var(--blue);
+      }
+      .shade-foot strong { color: var(--ink); }
+
+      .projection {
+        margin-top: 0.85rem;
+        padding: 0.6rem 0.75rem;
+        border-radius: 10px;
+        border: 1px dashed var(--blue-30);
+        background: var(--ink-04);
+        color: var(--ink);
         font-size: 0.82rem;
-        color: var(--text-soft);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
       }
+      .projection svg { color: var(--blue); flex-shrink: 0; }
 
-      .shade-foot strong {
-        color: var(--text);
-      }
-
+      /* ---------- Routine list ---------- */
       .routine-list {
         list-style: none;
         margin: 0;
@@ -386,131 +634,296 @@
         display: grid;
         gap: 0.5rem;
       }
-
       .routine-list li {
         display: flex;
         align-items: center;
-        gap: 0.7rem;
-        padding: 0.65rem 0.8rem;
+        gap: 0.75rem;
+        padding: 0.7rem 0.85rem;
         border-radius: 12px;
-        background: #f7f8fc;
+        background: var(--ink-04);
         border: 1px solid transparent;
       }
-
       .routine-list li.done {
-        background: var(--accent-soft);
-        border-color: rgba(13, 148, 136, 0.18);
+        background: var(--ice-25);
+        border-color: var(--ice-45);
       }
-
       .check {
         width: 22px;
         height: 22px;
         border-radius: 50%;
         display: grid;
         place-items: center;
-        background: #e2e8f0;
-        color: #fff;
+        background: var(--stone-30);
+        color: var(--snow);
         flex-shrink: 0;
+        border: 1px solid var(--stone-50);
       }
-
       .routine-list li.done .check {
-        background: var(--accent);
+        background: var(--ink);
+        border-color: var(--ink);
       }
-
       .routine-text {
         flex: 1;
-        font-size: 0.92rem;
+        font-size: 0.93rem;
         font-weight: 500;
+        color: var(--ink);
       }
-
       .pill {
-        font-size: 0.75rem;
+        font-size: 0.74rem;
         font-weight: 600;
-        color: var(--text-soft);
-        background: #eef1f8;
-        padding: 0.22rem 0.6rem;
+        color: var(--ink);
+        background: var(--snow);
+        border: 1px solid var(--stone-50);
+        padding: 0.2rem 0.55rem;
         border-radius: 999px;
       }
+
+      .smart-window {
+        margin-top: 0.9rem;
+        padding: 0.65rem 0.8rem;
+        border-radius: 12px;
+        background: var(--ink);
+        color: var(--snow);
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-size: 0.85rem;
+      }
+      .smart-window strong { color: var(--ice); font-weight: 700; }
+      .smart-window svg { color: var(--ice); flex-shrink: 0; }
+
+      /* ---------- Sensitivity heads-up ---------- */
+      .sense-meter {
+        margin: 0.5rem 0 0.85rem;
+        height: 8px;
+        border-radius: 999px;
+        background: var(--stone-30);
+        overflow: hidden;
+        position: relative;
+      }
+      .sense-fill {
+        position: absolute;
+        inset: 0 60% 0 0;
+        background: linear-gradient(90deg, var(--ice) 0%, var(--blue) 100%);
+        border-radius: 999px;
+      }
+      .sense-row {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.78rem;
+        color: var(--blue);
+        margin-bottom: 0.6rem;
+      }
+      .sense-row strong { color: var(--ink); }
 
       .tips {
         list-style: none;
         margin: 0;
         padding: 0;
         display: grid;
-        gap: 0.55rem;
+        gap: 0.5rem;
       }
-
       .tips li {
         display: flex;
         align-items: flex-start;
         gap: 0.6rem;
         font-size: 0.9rem;
-        color: var(--text-soft);
-        padding: 0.55rem 0.7rem;
+        color: var(--ink);
+        padding: 0.6rem 0.75rem;
         border-radius: 12px;
-        background: #fafbfe;
-        border: 1px solid var(--card-border);
+        background: var(--snow);
+        border: 1px solid var(--stone-50);
       }
-
       .tips svg {
         flex-shrink: 0;
-        color: var(--accent);
+        color: var(--blue);
         margin-top: 2px;
       }
 
+      /* ---------- Coach card (warmth beat) ---------- */
+      .coach {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 1rem;
+        align-items: center;
+        background:
+          linear-gradient(135deg, var(--ink) 0%, var(--blue) 100%);
+        color: var(--snow);
+        border: 1px solid var(--ink);
+        box-shadow: var(--shadow-lg);
+      }
+      .coach-avatar {
+        width: 64px;
+        height: 64px;
+        border-radius: 18px;
+        background:
+          radial-gradient(70% 60% at 30% 25%, var(--ice) 0%, transparent 65%),
+          radial-gradient(circle, var(--snow) 0%, var(--ice) 100%);
+        display: grid;
+        place-items: center;
+        color: var(--ink);
+        font-weight: 800;
+        font-size: 1.5rem;
+        box-shadow: 0 0 0 3px rgba(128, 233, 255, 0.35), 0 16px 30px -14px rgba(0, 0, 0, 0.4);
+        position: relative;
+      }
+      .coach-avatar::after {
+        content: "";
+        position: absolute;
+        right: -4px;
+        bottom: -4px;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: var(--ice);
+        border: 2px solid var(--ink);
+      }
+      .coach-body { display: grid; gap: 0.3rem; }
+      .coach-eyebrow {
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--ice);
+      }
+      .coach-msg {
+        margin: 0;
+        font-size: 1rem;
+        line-height: 1.5;
+        color: var(--snow);
+      }
+      .coach-msg strong { color: var(--ice); font-weight: 700; }
+      .coach-actions {
+        margin-top: 0.4rem;
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+      .coach-btn {
+        font-size: 0.82rem;
+        font-weight: 600;
+        padding: 0.45rem 0.85rem;
+        border-radius: 999px;
+        background: transparent;
+        border: 1px solid rgba(255, 252, 251, 0.35);
+        color: var(--snow);
+        cursor: pointer;
+      }
+      .coach-btn.primary {
+        background: var(--ice);
+        color: var(--ink);
+        border-color: var(--ice);
+      }
+
+      /* ---------- Milestone unlock card ---------- */
+      .milestone {
+        display: grid;
+        gap: 0.85rem;
+        padding: 1.2rem;
+        position: relative;
+        overflow: hidden;
+      }
+      .milestone::before {
+        content: "";
+        position: absolute;
+        right: -40px;
+        top: -40px;
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(closest-side, var(--ice-45), transparent 70%);
+        filter: blur(8px);
+      }
+      .milestone-row {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      .milestone-badge {
+        width: 56px;
+        height: 56px;
+        border-radius: 16px;
+        background: var(--ink);
+        color: var(--ice);
+        display: grid;
+        place-items: center;
+        box-shadow: 0 0 0 3px var(--ice-25);
+        flex-shrink: 0;
+      }
+      .milestone-body { flex: 1; min-width: 220px; }
+      .milestone-body h3 {
+        margin: 0 0 0.15rem;
+        color: var(--ink);
+        font-size: 1.05rem;
+        letter-spacing: -0.01em;
+      }
+      .milestone-body p {
+        margin: 0;
+        color: var(--blue);
+        font-size: 0.88rem;
+      }
+      .milestone-progress {
+        position: relative;
+        height: 10px;
+        background: var(--stone-30);
+        border-radius: 999px;
+        overflow: hidden;
+      }
+      .milestone-fill {
+        position: absolute;
+        inset: 0 13% 0 0;
+        background: linear-gradient(90deg, var(--blue) 0%, var(--ice) 100%);
+        border-radius: 999px;
+      }
+      .milestone-foot {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.82rem;
+        color: var(--blue);
+      }
+      .milestone-foot strong { color: var(--ink); }
+
+      /* ---------- Footer ---------- */
       .footer-note {
         display: flex;
         flex-wrap: wrap;
         gap: 0.5rem 1rem;
         justify-content: space-between;
         align-items: center;
-        color: var(--muted);
+        color: var(--blue);
         font-size: 0.82rem;
         padding: 0.5rem 0.25rem 0;
       }
+      .footer-note strong { color: var(--ink); font-weight: 600; }
 
-      .footer-note strong {
-        color: var(--text-soft);
-        font-weight: 600;
-      }
-
+      /* ---------- Responsive ---------- */
       @media (min-width: 640px) {
         .hero {
           grid-template-columns: 1.4fr 1fr;
           align-items: center;
-          padding: 1.75rem;
+          padding: 1.9rem;
         }
-
-        .nav {
-          display: inline-flex;
-        }
+        .nav { display: inline-flex; }
+        .journey-grid { grid-template-columns: repeat(3, 1fr); }
       }
 
       @media (min-width: 768px) {
-        .grid {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-
-        .card {
-          padding: 1.25rem;
-        }
+        .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .card { padding: 1.3rem; }
       }
 
       @media (min-width: 1024px) {
-        .page {
-          padding: 0.5rem 1.5rem 2.5rem;
-        }
+        .page { padding: 0.5rem 1.5rem 3rem; }
+        .grid { grid-template-columns: 1.2fr 1fr 1fr; }
+        .hero { padding: 2.25rem 2.4rem; }
+        .card { padding: 1.4rem; }
+      }
 
-        .grid {
-          grid-template-columns: 1.25fr 1fr 1fr;
-        }
-
-        .hero {
-          padding: 2rem 2.25rem;
-        }
-
-        .card {
-          padding: 1.4rem;
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          animation-duration: 0ms !important;
+          animation-iteration-count: 1 !important;
         }
       }
     </style>
@@ -531,12 +944,13 @@
     </header>
 
     <main class="page">
-      <section class="card hero">
+      <!-- HERO -->
+      <section class="hero" aria-label="Today">
         <div>
           <span class="eyebrow">Day 12 of 21 · Whitening program</span>
           <h1>Good morning, Jamie — your smile is on track.</h1>
           <p class="hero-sub">
-            You're 68% through your brightening plan. Two more consistent days unlocks the next shade milestone.
+            You're 68% through your brightening plan. Two more consistent days unlocks your next shade milestone.
           </p>
           <div class="hero-actions">
             <button class="cta" type="button">
@@ -547,33 +961,118 @@
             </button>
             <button class="cta cta-secondary" type="button">View weekly plan</button>
             <span class="streak" aria-label="Current streak: 9 days">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M13.5 0.7c.3 3.2-1 5.4-3 7.3-2.4 2.2-4 4-4 7.4 0 4.7 3.8 8.6 8.5 8.6s8.5-3.8 8.5-8.6c0-5.8-4.3-9.2-7.7-12.5C14.7.2 14 .1 13.5.7z"/>
-              </svg>
+              <span class="streak-ring" aria-hidden="true">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M13.5 0.7c.3 3.2-1 5.4-3 7.3-2.4 2.2-4 4-4 7.4 0 4.7 3.8 8.6 8.5 8.6s8.5-3.8 8.5-8.6c0-5.8-4.3-9.2-7.7-12.5C14.7.2 14 .1 13.5.7z"/>
+                </svg>
+              </span>
               9-day streak
             </span>
           </div>
         </div>
+
         <aside class="hero-side" aria-label="Smile Health Index">
           <div class="score-label">
             <span>Smile Health Index</span>
             <span class="score-tag">This week</span>
           </div>
-          <div class="score-value">
-            87<small>/ 100</small>
+          <div class="score-halo" role="img" aria-label="Smile Health Index: 87 out of 100">
+            <div class="score-center">
+              <div class="score-value">87<small>/100</small></div>
+              <span class="score-delta">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="6 15 12 9 18 15"></polyline>
+                </svg>
+                +6 wk
+              </span>
+            </div>
           </div>
-          <span class="score-delta">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <polyline points="6 15 12 9 18 15"></polyline>
-            </svg>
-            +6 since last week
-          </span>
-          <p class="card-sub" style="margin-top: 0.25rem;">
-            Brightness, sensitivity, and routine consistency combined.
-          </p>
+          <p class="score-sub">Brightness, sensitivity &amp; routine consistency combined.</p>
         </aside>
       </section>
 
+      <!-- SMILE JOURNEY (before / today / projected) -->
+      <section class="card journey" aria-label="Smile journey">
+        <div class="journey-head">
+          <div>
+            <h2>Your smile journey</h2>
+            <p>Captured every morning at 8:00 AM · 9 photos this program</p>
+          </div>
+          <a class="journey-link" href="#">View timeline →</a>
+        </div>
+        <div class="journey-grid">
+          <article class="smile-card">
+            <div class="smile-svg" aria-hidden="true">
+              <svg width="120" height="50" viewBox="0 0 120 50" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="day1" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0" stop-color="#FFFCFB"/>
+                    <stop offset="1" stop-color="#CCC8C7"/>
+                  </linearGradient>
+                </defs>
+                <rect x="6"  y="8" width="14" height="34" rx="4" fill="url(#day1)" opacity="0.78"/>
+                <rect x="22" y="6" width="16" height="38" rx="5" fill="url(#day1)" opacity="0.86"/>
+                <rect x="40" y="6" width="18" height="40" rx="5" fill="url(#day1)" opacity="0.92"/>
+                <rect x="60" y="6" width="18" height="40" rx="5" fill="url(#day1)" opacity="0.92"/>
+                <rect x="80" y="6" width="16" height="38" rx="5" fill="url(#day1)" opacity="0.86"/>
+                <rect x="98" y="8" width="14" height="34" rx="4" fill="url(#day1)" opacity="0.78"/>
+              </svg>
+            </div>
+            <div class="smile-meta">
+              <span>Day 1 · <strong>B2</strong></span>
+              <span class="smile-chip">Start</span>
+            </div>
+          </article>
+
+          <article class="smile-card today">
+            <div class="smile-svg" aria-hidden="true">
+              <svg width="120" height="50" viewBox="0 0 120 50" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="today" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0" stop-color="#FFFCFB"/>
+                    <stop offset="1" stop-color="#CCC8C7"/>
+                  </linearGradient>
+                </defs>
+                <rect x="6"  y="8" width="14" height="34" rx="4" fill="url(#today)" opacity="0.45"/>
+                <rect x="22" y="6" width="16" height="38" rx="5" fill="url(#today)" opacity="0.55"/>
+                <rect x="40" y="6" width="18" height="40" rx="5" fill="url(#today)" opacity="0.65"/>
+                <rect x="60" y="6" width="18" height="40" rx="5" fill="url(#today)" opacity="0.65"/>
+                <rect x="80" y="6" width="16" height="38" rx="5" fill="url(#today)" opacity="0.55"/>
+                <rect x="98" y="8" width="14" height="34" rx="4" fill="url(#today)" opacity="0.45"/>
+              </svg>
+            </div>
+            <div class="smile-meta">
+              <span>Day 12 · <strong>A2</strong></span>
+              <span class="smile-chip">Today</span>
+            </div>
+          </article>
+
+          <article class="smile-card goal">
+            <div class="smile-svg" aria-hidden="true">
+              <svg width="120" height="50" viewBox="0 0 120 50" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="ice" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0" stop-color="#FFFCFB"/>
+                    <stop offset="1" stop-color="#80E9FF"/>
+                  </linearGradient>
+                </defs>
+                <rect x="6"  y="8" width="14" height="34" rx="4" fill="url(#ice)" opacity="0.55"/>
+                <rect x="22" y="6" width="16" height="38" rx="5" fill="url(#ice)" opacity="0.7"/>
+                <rect x="40" y="6" width="18" height="40" rx="5" fill="url(#ice)" opacity="0.85"/>
+                <rect x="60" y="6" width="18" height="40" rx="5" fill="url(#ice)" opacity="0.85"/>
+                <rect x="80" y="6" width="16" height="38" rx="5" fill="url(#ice)" opacity="0.7"/>
+                <rect x="98" y="8" width="14" height="34" rx="4" fill="url(#ice)" opacity="0.55"/>
+              </svg>
+            </div>
+            <div class="smile-meta">
+              <span>Day 21 · <strong>A1</strong></span>
+              <span class="smile-chip">Projected</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- DAILY OVERVIEW GRID -->
       <section class="grid" aria-label="Daily overview">
         <article class="card">
           <div class="card-head">
@@ -588,20 +1087,29 @@
             </div>
           </div>
           <div class="shade-row" role="img" aria-label="Started at B2, now A2, goal A1">
-            <div class="shade" style="--shade-bg:#e3dccb">B2</div>
-            <div class="shade" style="--shade-bg:#ece6d4">B1</div>
-            <div class="shade current" style="--shade-bg:#f3eedb">A2</div>
-            <div class="shade goal" style="--shade-bg:#f8f4e3">A1</div>
+            <div class="shade" style="--shade-bg: var(--stone-50)">B2</div>
+            <div class="shade" style="--shade-bg: var(--stone-30)">B1</div>
+            <div class="shade current" style="--shade-bg: var(--snow)">A2</div>
+            <div class="shade goal" style="--shade-bg: var(--ice-25)">A1</div>
           </div>
           <div class="shade-foot">
             <span><strong>2.5 levels</strong> brighter</span>
             <span>9 days to goal</span>
           </div>
+          <div class="projection">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="4" width="18" height="18" rx="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8"  y1="2" x2="8"  y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            On pace to reach <strong style="margin-left:2px">A1 by May 28</strong>.
+          </div>
         </article>
 
         <article class="card">
           <div class="card-head">
-            <span class="card-icon accent" aria-hidden="true">
+            <span class="card-icon solid" aria-hidden="true">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="9"/>
                 <polyline points="12 7 12 12 15 14"/>
@@ -637,41 +1145,86 @@
               <span class="pill">2 min</span>
             </li>
           </ul>
+          <div class="smart-window">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="9"/>
+              <polyline points="12 7 12 12 15 14"/>
+            </svg>
+            Best window for your last step: <strong>7:30 – 8:00 PM</strong>
+          </div>
         </article>
 
         <article class="card">
           <div class="card-head">
-            <span class="card-icon gold" aria-hidden="true">
+            <span class="card-icon outline" aria-hidden="true">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 2l2.4 5.6L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.6-1.4z"/>
+                <path d="M12 22s8-7 8-13a8 8 0 0 0-16 0c0 6 8 13 8 13z"/>
+                <circle cx="12" cy="9" r="2.5"/>
               </svg>
             </span>
             <div>
-              <h3>Smart Tips</h3>
-              <p class="card-sub">Personalised for week 2</p>
+              <h3>Sensitivity Heads-Up</h3>
+              <p class="card-sub">Predicted from days 10–14 patterns</p>
             </div>
           </div>
+          <div class="sense-row"><span>Low</span><span><strong>Mild today</strong></span><span>High</span></div>
+          <div class="sense-meter" aria-label="Predicted sensitivity: mild"><span class="sense-fill"></span></div>
           <ul class="tips">
             <li>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <polyline points="20 6 9 17 4 12"/>
               </svg>
-              Rinse, don't brush, for 30 minutes after whitening strips.
+              Use a fluoride rinse tonight to soften day-12 tingles.
             </li>
             <li>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <polyline points="20 6 9 17 4 12"/>
               </svg>
-              Use a fluoride rinse tonight to ease day-12 sensitivity.
+              Skip ice water until tomorrow morning.
             </li>
             <li>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <polyline points="20 6 9 17 4 12"/>
               </svg>
-              Log your evening smile photo to keep your streak alive.
+              Rinse, don't brush, for 30 min after strips.
             </li>
           </ul>
         </article>
+      </section>
+
+      <!-- SMILE COACH (warmth beat) -->
+      <section class="card coach" aria-label="Message from your Smile Coach">
+        <div class="coach-avatar" aria-hidden="true">L</div>
+        <div class="coach-body">
+          <span class="coach-eyebrow">Smile Coach · Dr. Avery</span>
+          <p class="coach-msg">
+            Jamie, you're <strong>two days ahead</strong> of most week-2 plans. Tonight's rinse is the one that locks in this week's gain — make it your last sip of the day.
+          </p>
+          <div class="coach-actions">
+            <button class="coach-btn primary" type="button">Ask the coach</button>
+            <button class="coach-btn" type="button">See pro tips</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- MILESTONE PREVIEW -->
+      <section class="card milestone" aria-label="Next milestone">
+        <div class="milestone-row">
+          <div class="milestone-badge" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2l2.4 5.6L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.6-1.4z"/>
+            </svg>
+          </div>
+          <div class="milestone-body">
+            <h3>Next milestone — Shade A1 unlock</h3>
+            <p>Finish today and tomorrow's routines to earn the Bright Week badge and a free polishing strip.</p>
+          </div>
+        </div>
+        <div class="milestone-progress" aria-label="87% complete"><span class="milestone-fill"></span></div>
+        <div class="milestone-foot">
+          <span>87% to next unlock</span>
+          <span><strong>2 days</strong> remaining</span>
+        </div>
       </section>
 
       <p class="footer-note">
