@@ -8,9 +8,18 @@ Take the time to do this right. Don't optimize for finishing fast — optimize f
 
 ## What this repo is
 
-Lumora is currently a **design mock only** — there is no application, no build, no tests. The entire deliverable lives in a single self-contained HTML file at `docs/mocks/index.html` (~1,200 lines) with inline CSS and inline SVG. The repo also contains rendered screenshots at three breakpoints (mobile/tablet/desktop) committed as PNGs next to the mock.
+Lumora is currently a **design mock only** — there is no application, no build, no tests. The deliverable is a set of self-contained HTML files under `docs/mocks/`, each with inline CSS and inline SVG. The product is a teeth-whitening / smile-journey app; the mocks depict the post-login experience.
 
-The mock depicts a post-login dashboard for a teeth-whitening / smile-journey product: hero with a "Smile Health Index" score, a before/today/projected journey card, a daily-overview grid, a coach card, and a milestone unlock card.
+| File | Screen | Marked as current in nav |
+|------|--------|--------------------------|
+| `docs/mocks/index.html` | Dashboard — hero, Smile Health Index, journey strip, daily-overview grid, milestone | Dashboard |
+| `docs/mocks/routine.html` | Today's routine — session hero, ordered steps, weekly intensity strip, reminders + sensitivity settings | Routine |
+| `docs/mocks/progress.html` | Progress — KPI hero, 21-day shade chart, daily-photo grid, streak calendar, milestone list, insights | Progress |
+| `docs/mocks/shop.html` | Shop — member-perks banner, category chips, recommended row, product grid, auto-deliver + rewards | Shop |
+
+The dashboard also has rendered screenshots at three breakpoints (mobile/tablet/desktop) committed as PNGs next to the mock. The other three pages do not currently have committed screenshots.
+
+All four pages share the same chrome (app bar with brand mark, primary nav, avatar) and link to each other via the nav. Each page is intentionally self-contained — CSS is **not** extracted to a shared stylesheet because designers iterate per-screen and the base block is small.
 
 ## Working on the mock
 
